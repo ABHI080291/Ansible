@@ -20,13 +20,6 @@ Minimal Learning Curve
 Highly Secure
 Extensible
 
-
-**Architecture Overview**
-Control Node: The machine where Ansible is installed.
-Managed Nodes: Systems managed by Ansible.
-Inventory: List of nodes.
-Modules: Units of work.
-
 **2. How Ansible Works**
 Ansible uses SSH for communication.
 No agent installation on managed nodes.
@@ -46,16 +39,21 @@ Variables:- Dynamic values used in tasks.
 
 **On Ubuntu**
 sudo apt-add-repository ppa:ansible/ansible
+
 sudo apt update
+
 sudo apt install ansible
 
-On Windows (Using WSL)
+**On Windows (Using WSL)**
 Install Ubuntu WSL
+
 Follow Ubuntu steps
 
 **5. Basic Ansible Commands**
 ansible all -m ping
+
 ansible all -m shell -a 'uptime'
+
 ansible all -m copy -a 'src=/etc/hosts dest=/tmp/hosts'
 
 **6. Writing Your First Playbook**
@@ -63,11 +61,16 @@ ansible all -m copy -a 'src=/etc/hosts dest=/tmp/hosts'
 Playbook Structure
 
 - hosts: all
+  
   become: yes
+  
   tasks:
+  
     - name: Install Apache
       apt:
+      
         name: apache2
+      
         state: present
 
 YAML Basics
