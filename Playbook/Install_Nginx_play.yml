@@ -1,18 +1,12 @@
 ---
-- name: Install Nginx Web Server
+- name: Install Nginx
   hosts: all
   become: yes   # To run tasks with sudo/admin privileges
   tasks:
-    - name: Update apt package index (for Ubuntu/Debian)
-      apt:
-        update_cache: yes
-      when: ansible_os_family == "Debian"
-
     - name: Install Nginx
       apt:
         name: nginx
-        state: present
-      when: ansible_os_family == "Debian"
+        state: latest
 
     - name: Ensure Nginx is started and enabled
       service:
