@@ -1,5 +1,5 @@
 ---
-- name: Install Nginx
+- name: Install Nginx and start the Nginx
   hosts: all
   become: yes   # To run tasks with sudo/admin privileges
   tasks:
