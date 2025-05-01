@@ -1,0 +1,33 @@
+---
+- name: Create EC2 Instance on AWS
+  hosts: localhost
+  connection: local
+
+vars:
+    region: us-east-1
+    key_name: Ansible-Instance-key
+    instance_type: t2.micro
+    ami_id: ami-0c94855ba95c71c99  # Amazon Linux 2 AMI (update based on region)
+    security_group: Ansible-sg
+    instance_name: Ansible_Instance
+  
+  tasks:
+    - name: Launch EC2 instance
+      amazon.aws.ec2_instance:
+        name: "{{ instance_name }}"
+        key_name: "{{ key_name }}"
+        instance_type: "{{ instance_type }}"
+        region: "{{ region }}"
+        image_id: "{{ ami_id }}"
+        security_group: "{{ security_group }}"
+        aws_access_key: "{{ec2_access_key}}"  # From vault as defined
+        aws_secret_key: "{{ec2_secret_key}}"  # From vault as defined
+        
+        tags:
+          Environment: Dev
+          Name: "{{ instance_name }}"
+      register: ec2
+
+    - name: Display instance public IP
+      debug:
+        msg: "Instance Public IP: {{ ec2.instances[0].public_ip_address }}"
